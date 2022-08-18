@@ -1,0 +1,14 @@
+.vscode/
+node_modules/
+snapshots-tmp/
+morpho-core-v1/
+bin/
+debug/
+dep/**
+obj/
+src/glyphs.c
+src/glyphs.h
+DS_Store/
+**/.DS_Store
+**.swp
+Save*
