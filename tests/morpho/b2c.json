@@ -1,0 +1,45 @@
+{
+    "chainId": 1,
+    "contracts": [
+        {
+            "address": "0x8888882f8f843896699869179fb6e4f7e3b58888",
+            "contractName": "Morpho",
+            "selectors": {
+                "0x0c0a769b": {
+                    "erc20OfInterest": [
+                        "_poolTokenAddress"
+                    ],
+                    "method": "supply",
+                    "plugin": "Morpho"
+                },
+                "0x1da649cf": {
+                    "erc20OfInterest": [
+                        "_poolTokenAddress"
+                    ],
+                    "method": "repay",
+                    "plugin": "Morpho"
+                },
+                "0xf3fef3a3": {
+                    "erc20OfInterest": [
+                        "_poolTokenAddress"
+                    ],
+                    "method": "withdraw",
+                    "plugin": "Morpho"
+                },
+                "0x4b8a3529": {
+                    "erc20OfInterest": [
+                        "_poolTokenAddress"
+                    ],
+                    "method": "borrow",
+                    "plugin": "Morpho"
+                },
+                "0x148e23ce": {
+                    "erc20OfInterest": [],
+                    "method": "claimRewards",
+                    "plugin": "Morpho"
+                }
+            }
+        }
+    ],
+    "name": "Morpho"
+}
