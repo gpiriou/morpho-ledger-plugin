@@ -7,12 +7,13 @@ const testNetwork = "ethereum";
 const testLabel = "withdraw_comp"; // <= Name of the test
 const testDirSuffix = testLabel.toLowerCase().replace(/\s+/g, '_');
 
-const inputData = "0xf3fef3a300000000000000000000000070e36f6bf80a52b3b46b3af8e106cc0ed743e8e40000000000000000000000000000000000000000000000f3f23db97ae2f50d81";
+// https://etherscan.io/tx/0xa71b6c046374806bf154d13f82e1f39df25b0d0a9e4183ad8217c8288ea6fefa
+const inputData = "0xf3fef3a300000000000000000000000070e36f6bf80a52b3b46b3af8e106cc0ed743e8e4000000000000000000000000000000000000000000000fac3e3d2043484f0000";
 
 const models = [
 	{
 		name: 'nanos',
-		steps: 6
+		steps: 4
 	},
 	//{
 	//	name: 'nanox',
