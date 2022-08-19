@@ -1,5 +1,6 @@
 snapshots/ethereum_nanos_testing_dummy/
 snapshots-tmp/
+elfs
 node_modules/
 lib/
 DS_Store/
