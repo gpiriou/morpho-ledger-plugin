@@ -65,8 +65,8 @@ void dispatch_plugin_calls(int message, void *parameters)
 {
     switch (message)
     {
-        PRINTF("GPIRIOU INIT CONTRACT\n");
     case ETH_PLUGIN_INIT_CONTRACT:
+        PRINTF("GPIRIOU INIT CONTRACT\n");
         handle_init_contract(parameters);
         break;
     case ETH_PLUGIN_PROVIDE_PARAMETER:
