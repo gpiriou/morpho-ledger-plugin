@@ -1,12 +1,9 @@
 #include "morpho_plugin.h"
+#include "tokens.h"
 
 // Used to display corresponding payment token info (i.e cDAI -> DAI) for UI purposes. Edit here to add more tokens.
 void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
 {
-    token_info_t tokens_list[2] = {{.collateral_address = {CWETH_ADDRESS}, .ticker = "WETH ", .decimals = 18}, {.collateral_address = {CCOMP_ADDRESS}, .ticker = "COMP ", .decimals = 18}};
-    PRINTF("GPIRIOU STRUCT COLL ADDRESS:%.*H\n", ADDRESS_LENGTH, tokens_list[0].collateral_address);
-    PRINTF("GPIRIOU STRUCT COLL ADDRESS:%.*H\n", ADDRESS_LENGTH, tokens_list[1].collateral_address);
-    PRINTF("GPIRIOU ASSIGN TOKEN\n");
     size_t i = 0;
     while (i < 2 && memcmp(tokens_list[i].collateral_address, msg->parameter + 12, ADDRESS_LENGTH))
     {

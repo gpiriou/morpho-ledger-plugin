@@ -9,27 +9,7 @@
 #define DEFAULT_DECIMAL WEI_TO_ETHER
 #define ETH_DECIMAL WEI_TO_ETHER
 
-// Compound addresses.
-extern const uint8_t CWETH_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CCOMP_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUNI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUSDC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CDAI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CFEI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CWBTC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUSDT_ADDRESS[ADDRESS_LENGTH];
-
-// Corresponding token addresses for UI.
-extern const uint8_t AWETH_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AAAVE_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUNI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUSDC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t ADAI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AFEI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AWBTC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUSDT_ADDRESS[ADDRESS_LENGTH];
-
-#define NUM_TOKENS_SUPPORTED 8
+#define NUM_TOKENS_SUPPORTED 2
 
 // Enumeration of the different selectors possible.
 // Should follow the exact same order as the array declared in main.c
@@ -44,6 +24,7 @@ typedef enum
 
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
 #define NUM_SELECTORS 5
+// Number of tokens list on compound and aave on 20/08/22.
 
 extern const uint32_t MORPHO_SELECTORS[NUM_SELECTORS];
 
@@ -66,7 +47,7 @@ typedef struct __attribute__((__packed__)) context_t
 
 typedef struct token_info_t
 {
-    const uint8_t collateral_address[ADDRESS_LENGTH];
+    const uint8_t *collateral_address[ADDRESS_LENGTH];
     char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
     uint8_t decimals;
 } token_info_t;
