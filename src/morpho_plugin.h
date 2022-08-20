@@ -64,6 +64,13 @@ typedef struct __attribute__((__packed__)) context_t
     selector_t selectorIndex; // method id
 } context_t;
 
+typedef struct token_info_t
+{
+    const uint8_t collateral_address[ADDRESS_LENGTH];
+    char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
+    uint8_t decimals;
+} token_info_t;
+
 typedef enum
 {
     _POOL_TOKEN_ADDRESS_SUPPLY_REPAY,
@@ -88,6 +95,7 @@ typedef enum
 // this check.
 _Static_assert(sizeof(context_t) <= 5 * 32, "Structure of parameters too big.");
 
+void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context);
 void handle_provide_parameter(void *parameters);
 void handle_query_contract_ui(void *parameters);
 void handle_init_contract(void *parameters);
