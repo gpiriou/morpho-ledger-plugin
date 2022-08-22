@@ -9,7 +9,7 @@ void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
         i++;
     if (!(memcmp(tokens_list[i].collateral_address, msg->parameter + 12, ADDRESS_LENGTH)))
     {
-        PRINTF("ADDRESSES MATCHED\n");
+        PRINTF("ADDRESS MATCHED\n");
         memcpy(context->token_ticker, tokens_list[i].ticker, MAX_TICKER_LEN);
         context->token_decimals = tokens_list[i].decimals;
     }
