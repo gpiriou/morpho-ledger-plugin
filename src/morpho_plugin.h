@@ -9,7 +9,7 @@
 #define DEFAULT_DECIMAL WEI_TO_ETHER
 #define ETH_DECIMAL WEI_TO_ETHER
 
-#define NUM_TOKENS_SUPPORTED 2
+#define NUM_TOKENS_SUPPORTED 9 // To add supported tokens, edit to match size of tokens_list array.
 
 // Enumeration of the different selectors possible.
 // Should follow the exact same order as the array declared in main.c
@@ -47,9 +47,9 @@ typedef struct __attribute__((__packed__)) context_t
 
 typedef struct token_info_t
 {
-    const uint8_t *collateral_address[ADDRESS_LENGTH];
-    char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
-    uint8_t decimals;
+    const uint8_t collateral_address[ADDRESS_LENGTH];
+    const char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
+    const uint8_t decimals;
 } token_info_t;
 
 typedef enum

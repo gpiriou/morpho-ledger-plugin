@@ -40,12 +40,6 @@ const uint32_t MORPHO_SELECTORS[NUM_SELECTORS] = {
     CLAIM_REWARDS_SELECTOR,
 };
 
-// const token_info_t cweth_info = {.collateral_address = {CWETH_ADDRESS}, .ticker = "WETH ", .decimals = 18};
-// const token_info_t ccomp_info = {.collateral_address = {CCOMP_ADDRESS}, .ticker = "COMP ", .decimals = 18};
-
-// const token_info_t tokens_list[2] = {cweth_info, ccomp_info};
-// const token_info_t tokens_list[2] = {cweth_info};
-
 // Function to dispatch calls from the ethereum app.
 void dispatch_plugin_calls(int message, void *parameters)
 {
