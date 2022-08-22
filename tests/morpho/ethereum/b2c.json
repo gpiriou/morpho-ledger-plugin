@@ -37,7 +37,16 @@
                     "erc20OfInterest": [],
                     "method": "claimRewards",
                     "plugin": "Morpho"
+                },
+            "address": "0x3b14e5c73e0a56d607a8688098326fd4b4292135",
+            "contractName": "RewardsDistributor",
+            "selectors": {
+                "0x3d13f874": {
+                    "erc20ofInterest": [],
+                    "method": "claim",
+                    "plugin": "Morpho"
                 }
+            }
             }
         }
     ],
