@@ -1,7 +1,11 @@
 .vscode/
-node_modules/
-snapshots-tmp/
+tests/elfs/
+tests/lib/
+tests/node_modules/
+tests/snapshots-tmp/
+tests/snapshots/ethereum_nanos_testing_dummy/
 morpho-core-v1/
+morpho-contracts/
 bin/
 debug/
 dep/**
