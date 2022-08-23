@@ -4,7 +4,7 @@ tests/lib/
 tests/node_modules/
 tests/snapshots-tmp/
 tests/snapshots/ethereum_nanos_testing_dummy/
-tests/src/networks/ethereum/*testing_dummy*.json
+tests/src/networks/ethereum/*testing_dummy*.js
 morpho-core-v1/
 morpho-contracts/
 bin/
