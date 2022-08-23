@@ -45,7 +45,7 @@
             "contractName": "RewardsDistributor",
             "selectors": {
                 "0x3d13f874": {
-                    "erc20ofInterest": [],
+                    "erc20OfInterest": [],
                     "method": "claim",
                     "plugin": "Morpho"
                 }
