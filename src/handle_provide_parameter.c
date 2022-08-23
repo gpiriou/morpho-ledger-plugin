@@ -72,7 +72,7 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
         if (msg->parameter[PARAMETER_LENGTH - 1])
             context->trade_for_morpho = 1;
         break;
-    case NONE:
+    case CLAIM_REWARDS_NONE:
         break;
     }
     context->next_param++;

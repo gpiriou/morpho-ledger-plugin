@@ -71,7 +71,7 @@ typedef enum
 {
     OFFSET_C_TOKEN_ADDRESSES,
     _TRADE_FOR_MORPHO_TOKEN,
-    NONE,
+    CLAIM_REWARDS_NONE,
 } claim_rewards_parameters;
 
 typedef enum
@@ -79,7 +79,7 @@ typedef enum
     _ACCOUNT,
     _CLAIMABLE,
     CALLDATA_PROOF,
-    NONE,
+    CLAIM_NONE,
 } claim_parameters;
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32. Do not remove

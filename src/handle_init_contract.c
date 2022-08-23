@@ -66,7 +66,7 @@ void handle_init_contract(void *parameters)
         context->next_param = _POOL_TOKEN_ADDRESS_WITHDRAW_BORROW;
         break;
     case CLAIM_REWARDS:
-        // context->next_param = _C_TOKEN_ADDRESSES;
+        context->next_param = OFFSET_C_TOKEN_ADDRESSES;
         break;
     default:
         PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);
