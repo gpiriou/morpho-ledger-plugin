@@ -20,11 +20,13 @@ typedef enum
     WITHDRAW,
     BORROW,
     CLAIM_REWARDS,
+    CLAIM,
 } selector_t;
 
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
-#define NUM_SELECTORS 5
-// Number of tokens list on compound and aave on 20/08/22.
+#define NUM_SELECTORS 6
+
+// Contracts ENUM
 
 extern const uint32_t MORPHO_SELECTORS[NUM_SELECTORS];
 
@@ -72,11 +74,18 @@ typedef enum
     NONE,
 } claim_rewards_parameters;
 
+typedef enum
+{
+    _ACCOUNT,
+    _CLAIMABLE,
+    CALLDATA_PROOF,
+    NONE,
+} claim_parameters;
+
 // Piece of code that will check that the above structure is not bigger than 5 * 32. Do not remove
 // this check.
 _Static_assert(sizeof(context_t) <= 5 * 32, "Structure of parameters too big.");
 
-void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context);
 void handle_provide_parameter(void *parameters);
 void handle_query_contract_ui(void *parameters);
 void handle_init_contract(void *parameters);

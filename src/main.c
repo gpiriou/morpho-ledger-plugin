@@ -30,14 +30,16 @@ static const uint32_t REPAY_SELECTOR = 0x1da649cf;
 static const uint32_t WITHDRAW_SELECTOR = 0xf3fef3a3;
 static const uint32_t BORROW_SELECTOR = 0x4b8a3529;
 static const uint32_t CLAIM_REWARDS_SELECTOR = 0x148e23ce;
+static const uint32_t CLAIM_SELECTOR = 0x3d13f874;
 
-// Array of all the different boilerplate selectors.
+// Array of all the different Morpho.sol and RewardsDistributors.sol selectors.
 const uint32_t MORPHO_SELECTORS[NUM_SELECTORS] = {
     SUPPLY_SELECTOR,
     REPAY_SELECTOR,
     WITHDRAW_SELECTOR,
     BORROW_SELECTOR,
     CLAIM_REWARDS_SELECTOR,
+    CLAIM_SELECTOR,
 };
 
 // Function to dispatch calls from the ethereum app.

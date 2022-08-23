@@ -78,6 +78,23 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
     context->next_param++;
 }
 
+//static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
+//{
+//    switch ((claim_rewards_parameters)context->next_param)
+//    {
+//    case OFFSET_C_TOKEN_ADDRESSES:
+//        break;
+//    case _TRADE_FOR_MORPHO_TOKEN:
+//        PRINTF("MORPHO BOOL - LAST BYTE: %d\n", msg->parameter[PARAMETER_LENGTH - 1]);
+//        if (msg->parameter[PARAMETER_LENGTH - 1])
+//            context->trade_for_morpho = 1;
+//        break;
+//    case NONE:
+//        break;
+//    }
+//    context->next_param++;
+//}
+
 void handle_provide_parameter(void *parameters)
 {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *)parameters;
