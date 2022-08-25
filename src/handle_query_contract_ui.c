@@ -1,6 +1,22 @@
 #include "morpho_plugin.h"
 #include "text.h"
 
+static void handle_warning_ui(ethQueryContractUI_t *msg, context_t *context)
+{
+    switch (msg->screenIndex)
+    {
+    case 1:
+        if (context->token_warning)
+            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
+        else
+            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
+        break;
+    case 2:
+        strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
+        break;
+    }
+}
+
 static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
 {
     switch (msg->screenIndex)
@@ -16,15 +32,8 @@ static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
-        strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-        if (context->token_warning)
-            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
-        else
-            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
-        break;
     case 2:
-        strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-        strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
+        handle_warning_ui(msg, context);
         break;
     default:
         strlcpy(msg->title, "ERROR", msg->titleLength);
@@ -46,15 +55,8 @@ static void handle_repay_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
-        strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-        if (context->token_warning)
-            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
-        else
-            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
-        break;
     case 2:
-        strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-        strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
+        handle_warning_ui(msg, context);
         break;
     default:
         strlcpy(msg->title, "ERROR", msg->titleLength);
@@ -129,6 +131,9 @@ static void handle_claim_ui(ethQueryContractUI_t *msg, context_t *context)
         else
             strlcpy(msg->msg, MSG_CLAIM_REWARDS_OTHERS_UI, msg->msgLength);
         break;
+    case 1:
+    case 2:
+        handle_warning_ui(msg, context);
     default:
         strlcpy(msg->title, "ERROR", msg->titleLength);
         strlcpy(msg->msg, "ERROR", msg->msgLength);
