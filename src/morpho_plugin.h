@@ -39,7 +39,7 @@ typedef struct __attribute__((__packed__)) context_t
     char token_ticker[MAX_TICKER_LEN];
     uint8_t token_decimals;
     uint8_t amount[INT256_LENGTH];
-    uint8_t on_behalf[ADDRESS_LENGTH];
+    uint8_t user_address[ADDRESS_LENGTH];
     uint16_t next_param;
     uint8_t trade_for_morpho;
     uint8_t user_warning;
@@ -77,8 +77,6 @@ typedef enum
 typedef enum
 {
     _ACCOUNT,
-    _CLAIMABLE,
-    CALLDATA_PROOF,
     CLAIM_NONE,
 } claim_parameters;
 

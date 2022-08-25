@@ -30,7 +30,7 @@ static void handle_supply_and_repay(ethPluginProvideParameter_t *msg, context_t 
         assign_token_info(msg, context);
         break;
     case _ON_BEHALF:
-        copy_address(context->on_behalf, msg->parameter, ADDRESS_LENGTH);
+        copy_address(context->user_address, msg->parameter, ADDRESS_LENGTH);
         break;
     case _AMOUNT_SUPPLY_REPAY:
         copy_parameter(context->amount, msg->parameter, sizeof(context->amount));
@@ -78,22 +78,18 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
     context->next_param++;
 }
 
-//static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
-//{
-//    switch ((claim_rewards_parameters)context->next_param)
-//    {
-//    case OFFSET_C_TOKEN_ADDRESSES:
-//        break;
-//    case _TRADE_FOR_MORPHO_TOKEN:
-//        PRINTF("MORPHO BOOL - LAST BYTE: %d\n", msg->parameter[PARAMETER_LENGTH - 1]);
-//        if (msg->parameter[PARAMETER_LENGTH - 1])
-//            context->trade_for_morpho = 1;
-//        break;
-//    case NONE:
-//        break;
-//    }
-//    context->next_param++;
-//}
+static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
+{
+    switch ((claim_parameters)context->next_param)
+    {
+    case _ACCOUNT:
+        copy_parameter(context->amount, msg->parameter, sizeof(context->amount));
+        break;
+    case CLAIM_NONE:
+        break;
+    }
+    context->next_param++;
+}
 
 void handle_provide_parameter(void *parameters)
 {
@@ -121,6 +117,9 @@ void handle_provide_parameter(void *parameters)
         break;
     case CLAIM_REWARDS:
         handle_claim_rewards(msg, context);
+        break;
+    case CLAIM:
+        handle_claim(msg, context);
         break;
     default:
         PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

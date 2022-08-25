@@ -5,34 +5,21 @@
 void handle_query_contract_id(void *parameters)
 {
     ethQueryContractID_t *msg = (ethQueryContractID_t *)parameters;
-    const context_t *context = (const context_t *)msg->pluginContext;
     // msg->name will be the upper sentence displayed on the screen.
     // msg->version will be the lower sentence displayed on the screen.
+
+    uint8_t COMPOUND_MORPHO_CONTRACT[ADDRESS_LENGTH] = {0x88, 0x88, 0x88, 0x2F, 0x8F, 0x84, 0x38, 0x96, 0x69, 0x98, 0x69, 0x17, 0x9F, 0xB6, 0xE4, 0xF7, 0xE3, 0xB5, 0x88, 0x88};
+    // uint8_t AAVE_MORPHO_CONTRACT[ADDRESS_LENGTH] = {};
 
     // For the first screen, display the plugin name.
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
 
-    PRINTF("GPIRIOU CONTRACT ID\n");
-    // Get selector according screen.
-    switch (context->selectorIndex)
+    if (!(memcmp(COMPOUND_MORPHO_CONTRACT, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH)))
+        strlcpy(msg->version, MSG_COMPOUND_ID, msg->versionLength);
+    //else if (!(memcmp(AAVE_MORPHO_CONTRACT, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH))
+    //    strlcpy(msg->version, MSG_AAVE_ID, msg->versionLength);
+    else
     {
-    case SUPPLY:
-        strlcpy(msg->version, MSG_SUPPLY_ID, msg->versionLength);
-        break;
-    case REPAY:
-        strlcpy(msg->version, MSG_REPAY_ID, msg->versionLength);
-        break;
-    case WITHDRAW:
-        strlcpy(msg->version, MSG_WITHDRAW_ID, msg->versionLength);
-        break;
-    case BORROW:
-        strlcpy(msg->version, MSG_BORROW_ID, msg->versionLength);
-        break;
-    case CLAIM_REWARDS:
-        strlcpy(msg->version, MSG_CLAIM_REWARDS_ID, msg->versionLength);
-        break;
-    default:
-        PRINTF("Selector index: %d not supported\n", context->selectorIndex);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
         return;
     }

@@ -10,13 +10,13 @@ void handle_finalize(void *parameters)
     PRINTF("GPIRIOU FINALIZE\n");
     msg->numScreens = 1;
 
-    if (context->selectorIndex == SUPPLY || context->selectorIndex == REPAY)
+    if (context->selectorIndex == SUPPLY || context->selectorIndex == REPAY || context->selectorIndex == CLAIM)
     {
-        if (memcmp(context->on_behalf, msg->address, ADDRESS_LENGTH))
+        if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
             PRINTF("ON BEHALF: %.*H\n",
                    ADDRESS_LENGTH,
-                   context->on_behalf);
+                   context->user_address);
             PRINTF("MSG ADDRESS: %.*H\n",
                    ADDRESS_LENGTH,
                    msg->address);

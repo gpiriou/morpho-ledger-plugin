@@ -68,6 +68,9 @@ void handle_init_contract(void *parameters)
     case CLAIM_REWARDS:
         context->next_param = OFFSET_C_TOKEN_ADDRESSES;
         break;
+    case CLAIM:
+        context->next_param = _ACCOUNT;
+        break;
     default:
         PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
