@@ -3,17 +3,15 @@
 
 static void handle_warning_ui(ethQueryContractUI_t *msg, context_t *context)
 {
-    switch (msg->screenIndex)
-    {
-    case 1:
-        if (context->token_warning)
-            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
-        else
-            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
-        break;
-    case 2:
+    strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
+    if (context->token_warning && msg->screenIndex == 1)
+        strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
+    else if (context->user_warning)
         strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
-        break;
+    else
+    {
+        strlcpy(msg->title, "ERROR", msg->titleLength);
+        strlcpy(msg->msg, "ERROR", msg->msgLength);
     }
 }
 
@@ -32,6 +30,7 @@ static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
+        handle_warning_ui(msg, context);
     case 2:
         handle_warning_ui(msg, context);
         break;
@@ -55,6 +54,7 @@ static void handle_repay_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
+        handle_warning_ui(msg, context);
     case 2:
         handle_warning_ui(msg, context);
         break;
@@ -126,14 +126,11 @@ static void handle_claim_ui(ethQueryContractUI_t *msg, context_t *context)
     {
     case 0:
         strlcpy(msg->title, TITLE_CLAIM_REWARDS_SCREEN_1_UI, msg->titleLength);
-        if (context->trade_for_morpho)
-            strlcpy(msg->msg, MSG_CLAIM_REWARDS_MORPHO_UI, msg->msgLength);
-        else
-            strlcpy(msg->msg, MSG_CLAIM_REWARDS_OTHERS_UI, msg->msgLength);
+        strlcpy(msg->msg, MSG_CLAIM_UI, msg->msgLength);
         break;
     case 1:
-    case 2:
         handle_warning_ui(msg, context);
+        break;
     default:
         strlcpy(msg->title, "ERROR", msg->titleLength);
         strlcpy(msg->msg, "ERROR", msg->msgLength);

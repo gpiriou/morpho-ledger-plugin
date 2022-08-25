@@ -84,7 +84,7 @@ static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
     {
     case _ACCOUNT:
         PRINTF("GPIRIOU ACCOUNT:\n");
-        copy_parameter(context->amount, msg->parameter, sizeof(context->amount));
+        copy_parameter(context->user_address, msg->parameter + 12, ADDRESS_LENGTH);
         break;
     case CLAIM_NONE:
         break;

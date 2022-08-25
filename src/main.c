@@ -52,18 +52,23 @@ void dispatch_plugin_calls(int message, void *parameters)
         handle_init_contract(parameters);
         break;
     case ETH_PLUGIN_PROVIDE_PARAMETER:
+        PRINTF("GPIRIOU PROVIDE PARAMETER\n");
         handle_provide_parameter(parameters);
         break;
     case ETH_PLUGIN_FINALIZE:
+        PRINTF("GPIRIOU FINALIZE\n");
         handle_finalize(parameters);
         break;
     case ETH_PLUGIN_PROVIDE_INFO:
+        PRINTF("GPIRIOU PROVIDE INFO\n");
         handle_provide_token(parameters);
         break;
     case ETH_PLUGIN_QUERY_CONTRACT_ID:
+        PRINTF("GPIRIOU QUERY CONTRACT ID\n");
         handle_query_contract_id(parameters);
         break;
     case ETH_PLUGIN_QUERY_CONTRACT_UI:
+        PRINTF("GPIRIOU QUERY CONTRACT UI\n");
         handle_query_contract_ui(parameters);
         break;
     default:

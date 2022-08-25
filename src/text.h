@@ -8,6 +8,7 @@
 // TITLE string for 1st UI is PLUGIN_NAME.
 
 #define MSG_COMPOUND_ID "Compound"
+#define MSG_REWARDS_DISTRIBUTOR_ID "Airdrop"
 #define MSG_AAVE_ID "Aave"
 #define MSG_UNKNOWN_ID "Unknown contract"
 
@@ -18,8 +19,9 @@
 #define TITLE_WITHDRAW_SCREEN_1_UI "Withdraw"
 #define TITLE_BORROW_SCREEN_1_UI "Borrow"
 #define TITLE_CLAIM_REWARDS_SCREEN_1_UI "Claim"
-#define MSG_CLAIM_REWARDS_MORPHO_UI "Trading claimed tokens for Morpho."
+#define MSG_CLAIM_REWARDS_MORPHO_UI "Trade tokens for MORPHO"
 #define MSG_CLAIM_REWARDS_OTHERS_UI "rewards"
+#define MSG_CLAIM_UI "MORPHO"
 #define TITLE_WARNING_UI "WARNING"
 #define MSG_USER_WARNING_UI "Wrong user address!"
 #define MSG_TOKEN_WARNING_UI "Unknown token!"

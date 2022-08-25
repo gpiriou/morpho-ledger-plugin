@@ -14,7 +14,7 @@ void handle_finalize(void *parameters)
     {
         if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
-            PRINTF("ON BEHALF: %.*H\n",
+            PRINTF("MSG PARAMETER: %.*H\n",
                    ADDRESS_LENGTH,
                    context->user_address);
             PRINTF("MSG ADDRESS: %.*H\n",
