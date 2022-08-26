@@ -121,7 +121,7 @@ void handle_provide_parameter(void *parameters)
         handle_withdraw_and_borrow(msg, context);
         break;
     case COMPOUND_CLAIM_REWARDS:
-        // case AAVE_CLAIM_REWARDS:
+    case AAVE_CLAIM_REWARDS:
         handle_claim_rewards(msg, context);
         break;
     case COMMON_CLAIM:

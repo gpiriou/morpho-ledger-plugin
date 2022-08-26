@@ -70,7 +70,7 @@ void handle_init_contract(void *parameters)
         context->next_param = _POOL_TOKEN_ADDRESS_WITHDRAW_BORROW;
         break;
     case COMPOUND_CLAIM_REWARDS:
-        // case AAVE_CLAIM_REWARDS:
+    case AAVE_CLAIM_REWARDS:
         context->next_param = OFFSET_C_TOKEN_ADDRESSES;
         break;
     case COMMON_CLAIM:

@@ -24,11 +24,12 @@ typedef enum
     AAVE_REPAY,
     AAVE_WITHDRAW,
     AAVE_BORROW,
+    AAVE_CLAIM_REWARDS,
     COMMON_CLAIM,
 } selector_t;
 
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
-#define NUM_SELECTORS 10
+#define NUM_SELECTORS 11
 
 // Contracts ENUM
 

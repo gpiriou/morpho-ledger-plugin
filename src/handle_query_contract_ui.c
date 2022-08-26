@@ -166,6 +166,7 @@ void handle_query_contract_ui(void *parameters)
         handle_borrow_ui(msg, context);
         break;
     case COMPOUND_CLAIM_REWARDS:
+    case AAVE_CLAIM_REWARDS:
         handle_claim_rewards_ui(msg, context);
         break;
     case COMMON_CLAIM:
