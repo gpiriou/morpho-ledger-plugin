@@ -30,6 +30,7 @@ static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
+        handle_warning_ui(msg, context);
     case 2:
         handle_warning_ui(msg, context);
         break;
@@ -53,6 +54,7 @@ static void handle_repay_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     case 1:
+        handle_warning_ui(msg, context);
     case 2:
         handle_warning_ui(msg, context);
         break;
