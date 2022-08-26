@@ -1,4 +1,4 @@
-import { nano_models, processTest, populateTransaction } from "../../../test.fixture";
+import { nano_models, processTest, populateTransaction } from "../../../../test.fixture";
 
 const contractName = "Morpho";
 const contractAddr = "0x777777c9898d384f785ee44acfe945efdff5f3e0";
