@@ -9,7 +9,7 @@
 #define DEFAULT_DECIMAL WEI_TO_ETHER
 #define ETH_DECIMAL WEI_TO_ETHER
 
-#define NUM_TOKENS_SUPPORTED 9 // To add supported tokens, edit to match size of tokens_list array.
+#define NUM_TOKENS_SUPPORTED 16 // To add supported tokens, edit to match size of tokens_list array.
 
 // Enumeration of the different selectors possible.
 // Should follow the exact same order as the array declared in main.c
