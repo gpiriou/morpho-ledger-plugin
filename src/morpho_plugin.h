@@ -15,16 +15,20 @@
 // Should follow the exact same order as the array declared in main.c
 typedef enum
 {
-    SUPPLY,
-    REPAY,
-    WITHDRAW,
-    BORROW,
-    CLAIM_REWARDS,
-    CLAIM,
+    COMPOUND_SUPPLY,
+    COMPOUND_REPAY,
+    COMPOUND_WITHDRAW,
+    COMPOUND_BORROW,
+    COMPOUND_CLAIM_REWARDS,
+    AAVE_SUPPLY,
+    AAVE_REPAY,
+    AAVE_WITHDRAW,
+    AAVE_BORROW,
+    COMMON_CLAIM,
 } selector_t;
 
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
-#define NUM_SELECTORS 6
+#define NUM_SELECTORS 10
 
 // Contracts ENUM
 

@@ -25,21 +25,31 @@
 #include "morpho_plugin.h"
 
 // List of selectors supported by this plugin.
-static const uint32_t SUPPLY_SELECTOR = 0x0c0a769b;
-static const uint32_t REPAY_SELECTOR = 0x1da649cf;
-static const uint32_t WITHDRAW_SELECTOR = 0xf3fef3a3;
-static const uint32_t BORROW_SELECTOR = 0x4b8a3529;
-static const uint32_t CLAIM_REWARDS_SELECTOR = 0x148e23ce;
-static const uint32_t CLAIM_SELECTOR = 0x3d13f874;
+static const uint32_t COMPOUND_SUPPLY_SELECTOR = 0x0c0a769b;
+static const uint32_t COMPOUND_REPAY_SELECTOR = 0x1da649cf;
+static const uint32_t COMPOUND_WITHDRAW_SELECTOR = 0xf3fef3a3;
+static const uint32_t COMPOUND_BORROW_SELECTOR = 0x4b8a3529;
+static const uint32_t COMPOUND_CLAIM_REWARDS_SELECTOR = 0x148e23ce;
+
+static const uint32_t AAVE_SUPPLY_SELECTOR = 0x0c0a769b;
+static const uint32_t AAVE_REPAY_SELECTOR = 0x1da649cf;
+static const uint32_t AAVE_WITHDRAW_SELECTOR = 0xf3fef3a3;
+static const uint32_t AAVE_BORROW_SELECTOR = 0x4b8a3529;
+
+static const uint32_t COMMON_CLAIM_SELECTOR = 0x3d13f874;
 
 // Array of all the different Morpho.sol and RewardsDistributors.sol selectors. (Compound / Aave and Common)
 const uint32_t MORPHO_SELECTORS[NUM_SELECTORS] = {
-    SUPPLY_SELECTOR,
-    REPAY_SELECTOR,
-    WITHDRAW_SELECTOR,
-    BORROW_SELECTOR,
-    CLAIM_REWARDS_SELECTOR,
-    CLAIM_SELECTOR,
+    COMPOUND_SUPPLY_SELECTOR,
+    COMPOUND_REPAY_SELECTOR,
+    COMPOUND_WITHDRAW_SELECTOR,
+    COMPOUND_BORROW_SELECTOR,
+    COMPOUND_CLAIM_REWARDS_SELECTOR,
+    AAVE_SUPPLY_SELECTOR,
+    AAVE_REPAY_SELECTOR,
+    AAVE_WITHDRAW_SELECTOR,
+    AAVE_BORROW_SELECTOR,
+    COMMON_CLAIM_SELECTOR,
 };
 
 // Function to dispatch calls from the ethereum app.

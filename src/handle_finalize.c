@@ -10,8 +10,13 @@ void handle_finalize(void *parameters)
     PRINTF("GPIRIOU FINALIZE\n");
     msg->numScreens = 1;
 
-    if (context->selectorIndex == SUPPLY || context->selectorIndex == REPAY || context->selectorIndex == CLAIM)
+    switch (context->selectorIndex)
     {
+    case COMPOUND_SUPPLY:
+    case COMPOUND_REPAY:
+    case AAVE_SUPPLY:
+    case AAVE_REPAY:
+    case COMMON_CLAIM:
         if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
             PRINTF("MSG PARAMETER: %.*H\n",
@@ -23,6 +28,9 @@ void handle_finalize(void *parameters)
             context->user_warning = 1;
             msg->numScreens++;
         }
+        break;
+    default:
+        break;
     }
     if (context->token_warning)
         msg->numScreens++;

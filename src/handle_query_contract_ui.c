@@ -149,22 +149,26 @@ void handle_query_contract_ui(void *parameters)
 
     switch (context->selectorIndex)
     {
-    case SUPPLY:
+    case COMPOUND_SUPPLY:
+    case AAVE_SUPPLY:
         handle_supply_ui(msg, context);
         break;
-    case REPAY:
+    case COMPOUND_REPAY:
+    case AAVE_REPAY:
         handle_repay_ui(msg, context);
         break;
-    case WITHDRAW:
+    case COMPOUND_WITHDRAW:
+    case AAVE_WITHDRAW:
         handle_withdraw_ui(msg, context);
         break;
-    case BORROW:
+    case COMPOUND_BORROW:
+    case AAVE_BORROW:
         handle_borrow_ui(msg, context);
         break;
-    case CLAIM_REWARDS:
+    case COMPOUND_CLAIM_REWARDS:
         handle_claim_rewards_ui(msg, context);
         break;
-    case CLAIM:
+    case COMMON_CLAIM:
         handle_claim_ui(msg, context);
         break;
     default:

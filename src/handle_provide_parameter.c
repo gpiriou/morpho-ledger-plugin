@@ -108,18 +108,23 @@ void handle_provide_parameter(void *parameters)
 
     switch (context->selectorIndex)
     {
-    case SUPPLY:
-    case REPAY:
+    case COMPOUND_SUPPLY:
+    case COMPOUND_REPAY:
+    case AAVE_SUPPLY:
+    case AAVE_REPAY:
         handle_supply_and_repay(msg, context);
         break;
-    case WITHDRAW:
-    case BORROW:
+    case COMPOUND_WITHDRAW:
+    case COMPOUND_BORROW:
+    case AAVE_WITHDRAW:
+    case AAVE_BORROW:
         handle_withdraw_and_borrow(msg, context);
         break;
-    case CLAIM_REWARDS:
+    case COMPOUND_CLAIM_REWARDS:
+        // case AAVE_CLAIM_REWARDS:
         handle_claim_rewards(msg, context);
         break;
-    case CLAIM:
+    case COMMON_CLAIM:
         handle_claim(msg, context);
         break;
     default:
