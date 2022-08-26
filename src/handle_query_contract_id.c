@@ -14,10 +14,10 @@ void handle_query_contract_id(void *parameters)
 
     if (!(memcmp(COMPOUND_MORPHO, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH)))
         strlcpy(msg->version, MSG_COMPOUND_ID, msg->versionLength);
-    else if (!(memcmp(COMMON_REWARDS_DISTRIBUTOR, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH)))
-        strlcpy(msg->version, MSG_REWARDS_DISTRIBUTOR_ID, msg->versionLength);
     else if (!(memcmp(AAVE_MORPHO, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH)))
         strlcpy(msg->version, MSG_AAVE_ID, msg->versionLength);
+    else if (!(memcmp(COMMON_REWARDS_DISTRIBUTOR, msg->pluginSharedRO->txContent->destination, ADDRESS_LENGTH)))
+        strlcpy(msg->version, MSG_REWARDS_DISTRIBUTOR_ID, msg->versionLength);
     else
     {
         msg->result = ETH_PLUGIN_RESULT_ERROR;

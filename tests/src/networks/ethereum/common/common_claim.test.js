@@ -1,10 +1,10 @@
-import { nano_models, processTest, populateTransaction } from "../../../test.fixture";
+import { nano_models, processTest, populateTransaction } from "../../../../test.fixture";
 
-const contractName = "Common";
+const contractName = "RewardsDistributor";
 const contractAddr = "0x3b14e5c73e0a56d607a8688098326fd4b4292135";
 const testNetwork = "ethereum";
 
-const testLabel = "claim"; // <= Name of the test
+const testLabel = "common_claim"; // <= Name of the test
 const testDirSuffix = testLabel.toLowerCase().replace(/\s+/g, '_');
 
 // https://etherscan.io/tx/0x871ae4c38e58f9ea12f37d42f5a52d34b7503429a8616263bb64d4c2306a98dc // but user_address address is modified to match speculos address (dd2b3f1d3a4f08622a25a3f75284fc01ad0c5cca -> DAD77910DBDFDE764FC21FCD4E74D71BBACA6D8D).
