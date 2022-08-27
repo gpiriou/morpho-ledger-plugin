@@ -128,11 +128,9 @@ async function processTransaction(eth, sim, steps, label, testNetwork, unsignedT
  * @param {string} testNetwork network name
  */
 function processTest(device, step, contractName, testLabel, testDirSuffix, unsignedTx, testNetwork = "ethereum") {
-  console.log('PENZO1 device', device)
   test(
     "[" + device.letter + "]" + "[" + contractName + "] - " + testLabel,
     zemu(device, testNetwork, async (sim, eth) => {
-      console.log('PENZO device', device)
       await processTransaction(
         eth,
         sim,
