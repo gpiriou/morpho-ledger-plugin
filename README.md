@@ -55,12 +55,6 @@ Find more info about `PRINTF` and debugging [here](https://developers.ledger.com
 
 ## Testing with ZEMU:
 
-The tests consist of recent snapshots in `./tests/snapshot-tmp` being compared to a set of expected snapshots located in
-
-`./tests/snapshots`.
-
-Open another terminal window.
-
 `cd <path>/morpho-ledger-plugin/tests`.
 
 `yarn test` to run all tests
