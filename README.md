@@ -1,9 +1,11 @@
-# morpho-ledger-plugin
-Nano S and X plugin for Morpho Labs.
+# Morpho Ledger Plugin
+Nano S, S Plus and X plugin for Morpho Labs.
+
+This plugin supports aave-v2 and compound morpho dapps on Ethereum mainnet.
 
 ## Plugins:
 
-Plugins are lightweight applications that go hand-in-hand with the Ethereum Application on Nano S / X devices.
+Plugins are lightweight applications that go hand-in-hand with the Ethereum Application on Nano S, SP and X devices.
 
 They allow users to safely interact with smart contracts by parsing the transaction data and displaying its content in a human readable way.
 
@@ -41,7 +43,7 @@ In the same terminal:
 
 `./start.sh`
 
-`cd ../nested-ledger-plugin/tests/`
+`cd ../morpho-ledger-plugin/tests/`
 
 `./build_locals_test.sh all`
 
@@ -83,9 +85,9 @@ Install [ledgerblue](https://github.com/LedgerHQ/blue-loader-python/):
 
 Add these aliases.
 
-`speculos='docker run --rm -it -v <path>/plugin_dev/nested-ledger-plugin/tests/elfs:/speculos/apps -p 5000:5000 --publish 41000:41000 speculos --display headless --vnc-port 41000 --apdu-port 41000 apps/ethereum_nanos.elf -l Nested:apps/nested_nanos.elf'`
+`speculos='docker run --rm -it -v <path>/plugin_dev/morpho-ledger-plugin/tests/elfs:/speculos/apps -p 5000:5000 --publish 41000:41000 speculos --display headless --vnc-port 41000 --apdu-port 41000 apps/ethereum_nanos.elf -l Morpho:apps/morpho_nanos.elf'`
 
-`ledgerspec='cat <path>/plugin_dev/nested-ledger-plugin/tests/apdu/"$1" | LEDGER_PROXY_ADDRESS=127.0.0.1 LEDGER_PROXY_PORT=41000 python3 -m ledgerblue.runScript --apdu'`
+`ledgerspec='cat <path>/plugin_dev/-ledger-plugin/tests/apdu/"$1".apdu | LEDGER_PROXY_ADDRESS=127.0.0.1 LEDGER_PROXY_PORT=41000 python3 -m ledgerblue.runScript --apdu'`
 
 In a new terminal window enter:
 
@@ -95,19 +97,17 @@ Open a browser page and enter `localhost:5000` in the url field. The browser pag
 
 In another terminal window type:
 
-`ledgerspec transferFrom`
+`ledgerspec borrow_wbtc`
 
-The emulating page should display a Nested NFT transfer transaction.
+The emulating page should display a Morpho - Compound borrow transaction.
 
 More information on the [speculos doc page](https://speculos.ledger.com/).
-
-*Note: You must have previously killed other running speculos terminals.*
 
 ## Testing by sideloading:
 
 It is also possible to sideload the plugin into a Nano S by using [ledgerblue](https://github.com/LedgerHQ/blue-loader-python/).
 
-This must be done on Debian (version 10 "Buster" or later) and Ubuntu (version 18.04 or later).
+This must be executed on Debian (version 10 "Buster" or later) and Ubuntu (version 18.04 or later).
 
 `pip3 install ledgerblue`
 
@@ -125,17 +125,17 @@ Follow the steps displayed on the ledger.
 
 Once installed you should be able to open the ethereum app and land on the "Application is ready" screen.
 
-`cd ../nested-ledger-plugin/`
+`cd ../morpho-ledger-plugin/`
 
 `make load BOLOS_SDK=$NANOS_SDK` to load the plugin.
 
 Send APDU's to the ledger with this alias:
 
-`ledger='cat <path>/plugin_dev/nested-ledger-plugin/tests/apdu/"$1" | sudo -E python3 -m ledgerblue.runScript --targetId 0x310004 --apdu'`
+`ledger='cat <path>/plugin_dev/morpho-ledger-plugin/tests/apdu/"$1".apdu | sudo -E python3 -m ledgerblue.runScript --targetId 0x310004 --apdu'`
 
 Open the plugin.
 
-`ledger transferFrom` to send the APDU's contained in the file to the ledger.
+`ledger borrow_wbtc` to send the APDU's contained in the file to the ledger.
 
 # Plugin modifications:
 
@@ -145,16 +145,15 @@ The plugin has 3 basic components for modifications:
 
 1. Number of screens.
 2. Screen function calls.
-3. String macros and functions.
+3. String defines.
+4. Supported tokens
 
 ### 1. Number of screens:
 There are two variables that can set the screen number.
 
 In `./src/handle_finalize.c` the `msg->numScreens` variable defines how many screens will be displayed.
 
-In `./src/handle_provide_token.c` the `msg->additionalScreens` variable increases the previously set screen number.
-
-Both are summed into `msg->screenIndex` which is used to scroll through screens.
+In `./src/handle_provide_token.c` the `msg->additionalScreens` variable can increase the previously set screen number.
 
 ### 2. Screen function calls:
 
@@ -170,23 +169,19 @@ The first screen is the ID screen, set in `./src/handle_query_contract_id.c`.
 These screens are set in `./src/handle_query_contract_ui.c`. 
 
 Edit the `switch(msg->screenIndex)` cases of `handle_<name-of-action>_ui()` functions if needed.
-
-### 3. String macros and functions:
-
-The strings displayed by the plugin are set by macros and functions.
  
- #### Macros:
+#### Defines:
 
 * `TITLE_<NAME_OF_ACTION>_SCREEN_#_UI` (top)
 * `MSG_<NAME_OF_ACTION>_SCREEN_#_UI` (bottom)
 
 Edit these in `./src/text.h` to modify the strings displayed to the user.
 
- #### Functions:
+#### Supported tokens
 
-These utilitary functions are used for displaying addresses, tickers, amounts, etc.
+To add supported tokens, add them to the `tokens_list` array and increase NUM_TOKENS_SUPPORTED accordingly in tokens.h.
 
-They are located in in `./src/text_utils.c`.
+*Note: The address is the collateral token's but the ticker and decimal are for the original and corresponding token.
 
 ## Advanced modifications:
 
