@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dev
+      - master
   pull_request:
     branches:
-      - dev
+      - master
 
 jobs:
   job_build_plugin_nano_s:
