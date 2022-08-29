@@ -233,7 +233,15 @@ jobs:
 
   jobs-e2e-tests:
     name: E2E Tests
-    needs: [job_build_plugin_debug_nano_s, job_build_ethereum_nano_s]
+    needs:
+      [
+        job_build_plugin_debug_nano_s,
+        job_build_plugin_debug_nano_sp,
+        job_build_plugin_debug_nano_x,
+        job_build_ethereum_nano_s,
+        job_build_ethereum_nano_sp,
+        job_build_ethereum_nano_x,
+      ]
     runs-on: ubuntu-latest
     steps:
       - name: Test
