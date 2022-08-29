@@ -5,10 +5,12 @@ on:
   push:
     branches:
       - master
+      - dev
       - workflows
   pull_request:
     branches:
       - master
+      - dev
       - workflows
 
 jobs:
