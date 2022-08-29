@@ -5,9 +5,11 @@ on:
   push:
     branches:
       - master
+      -worflows
   pull_request:
     branches:
       - master
+      - workflows
 
 jobs:
   job_build_plugin_nano_s:
