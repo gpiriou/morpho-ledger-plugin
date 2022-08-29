@@ -5,9 +5,13 @@ on:
   push:
     branches:
       - master
+      - dev
+      - workflows
   pull_request:
     branches:
       - master
+      - dev
+      - workflows
 
 jobs:
   job_build_plugin_nano_s:
@@ -231,15 +235,7 @@ jobs:
 
   jobs-e2e-tests:
     name: E2E Tests
-    needs:
-      [
-        job_build_plugin_debug_nano_s,
-        job_build_plugin_debug_nano_sp,
-        job_build_plugin_debug_nano_x,
-        job_build_ethereum_nano_s,
-        job_build_ethereum_nano_sp,
-        job_build_ethereum_nano_x,
-      ]
+    needs: [job_build_plugin_debug_nano_s, job_build_ethereum_nano_s]
     runs-on: ubuntu-latest
     steps:
       - name: Test
