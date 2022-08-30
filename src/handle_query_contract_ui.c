@@ -21,7 +21,7 @@ static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
     {
     // Edit these cases to change screens.
     case 0:
-        strlcpy(msg->title, TITLE_SUPPLY_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_SUPPLY_UI, msg->titleLength);
         // displays ticker and amount.
         amountToString(context->amount, sizeof(context->amount),
                        context->token_decimals,
@@ -45,7 +45,7 @@ static void handle_repay_ui(ethQueryContractUI_t *msg, context_t *context)
     switch (msg->screenIndex)
     {
     case 0:
-        strlcpy(msg->title, TITLE_REPAY_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_REPAY_UI, msg->titleLength);
         amountToString(context->amount, sizeof(context->amount),
                        context->token_decimals,
                        context->token_ticker,
@@ -68,7 +68,7 @@ static void handle_withdraw_ui(ethQueryContractUI_t *msg, context_t *context)
     switch (msg->screenIndex)
     {
     case 0:
-        strlcpy(msg->title, TITLE_WITHDRAW_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_WITHDRAW_UI, msg->titleLength);
         amountToString(context->amount, sizeof(context->amount),
                        context->token_decimals,
                        context->token_ticker,
@@ -87,7 +87,7 @@ static void handle_borrow_ui(ethQueryContractUI_t *msg, context_t *context)
     switch (msg->screenIndex)
     {
     case 0:
-        strlcpy(msg->title, TITLE_BORROW_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_BORROW_UI, msg->titleLength);
         amountToString(context->amount, sizeof(context->amount),
                        context->token_decimals,
                        context->token_ticker,

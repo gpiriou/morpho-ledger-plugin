@@ -1,7 +1,7 @@
 #include "morpho_plugin.h"
 #include "tokens.h"
 
-// Used to display corresponding payment token info (i.e cDAI -> DAI) for UI purposes. Edit here to add more tokens.
+// Used to display corresponding payment token info (i.e cDAI -> DAI) for UI purposes.
 void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
 {
     size_t i = 0;
