@@ -13,7 +13,7 @@ const inputData = "0x0c0a769b00000000000000000000000039aa49c021dfbae8fac54593669
 const models = [
 	{
 		name: 'nanos',
-		steps: 6
+		steps: 8
 	},
 	// {
 	// 	name: 'nanox',

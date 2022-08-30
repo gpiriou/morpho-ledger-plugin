@@ -3,11 +3,33 @@
 
 static void handle_warning_ui(ethQueryContractUI_t *msg, context_t *context)
 {
-    strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
     if (context->token_warning && msg->screenIndex == 1)
+    {
+        strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
         strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
+    }
     else if (context->user_warning)
-        strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
+    {
+        switch (context->selectorIndex)
+        {
+        case COMPOUND_SUPPLY:
+        case AAVE_SUPPLY:
+        case COMPOUND_REPAY:
+        case AAVE_REPAY:
+            strlcpy(msg->title, TITLE_ON_BEHALF_UI, msg->titleLength);
+            msg->msg[0] = '0';
+            msg->msg[1] = 'x';
+            getEthAddressStringFromBinary((uint8_t *)context->user_address,
+                                          (uint8_t *)msg->msg + 2,
+                                          msg->pluginSharedRW->sha3,
+                                          0);
+            break;
+        default:
+            strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
+            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
+            break;
+        }
+    }
     else
     {
         strlcpy(msg->title, "ERROR", msg->titleLength);
