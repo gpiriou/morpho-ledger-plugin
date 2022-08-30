@@ -7,19 +7,18 @@ void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
     size_t i = 0;
     while (i < NUM_TOKENS_SUPPORTED && memcmp(tokens_list[i].collateral_address, msg->parameter + 12, ADDRESS_LENGTH))
         i++;
-    if (!(memcmp(tokens_list[i].collateral_address, msg->parameter + 12, ADDRESS_LENGTH)))
+    if (i == NUM_TOKENS_SUPPORTED)
     {
-        PRINTF("ADDRESS MATCHED\n");
-        memcpy(context->token_ticker, tokens_list[i].ticker, MAX_TICKER_LEN);
-        context->token_decimals = tokens_list[i].decimals;
-    }
-    else
-    {
-        PRINTF("MSG PARAMETER: %.*H\n", PARAMETER_LENGTH, msg->parameter);
+        PRINTF("COLLATERAL ADDRESS NOT MATCHED");
+        PRINTF("TOKEN WARNING RAISED\n");
         memcpy(context->token_ticker, "? ", MAX_TICKER_LEN);
         context->token_decimals = DEFAULT_DECIMAL;
         context->token_warning = 1;
+        return;
     }
+    PRINTF("COLLATERAL ADDRESS MATCHED\n");
+    memcpy(context->token_ticker, tokens_list[i].ticker, MAX_TICKER_LEN);
+    context->token_decimals = tokens_list[i].decimals;
 }
 
 static void handle_supply_and_repay(ethPluginProvideParameter_t *msg, context_t *context)
@@ -61,6 +60,9 @@ static void handle_withdraw_and_borrow(ethPluginProvideParameter_t *msg, context
     context->next_param++;
 }
 
+// claimRewards() on compound and aave-v2 have a slightly different parameter structure:
+// The first parameter for compound is an address array, for aave-v2 it is a byte calldata.
+// This function handles both methods in the same way (i.e. skip array/calldata offset, get bool, and ignore the rest).
 static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *context)
 {
     switch ((claim_rewards_parameters)context->next_param)
@@ -74,6 +76,10 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
         break;
     case CLAIM_REWARDS_NONE:
         break;
+    default:
+        PRINTF("Param not supported: %d\n", context->next_param);
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
+        break;
     }
     context->next_param++;
 }
@@ -83,10 +89,13 @@ static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
     switch ((claim_parameters)context->next_param)
     {
     case _ACCOUNT:
-        PRINTF("GPIRIOU ACCOUNT:\n");
         copy_parameter(context->user_address, msg->parameter + 12, ADDRESS_LENGTH);
         break;
     case CLAIM_NONE:
+        break;
+    default:
+        PRINTF("Param not supported: %d\n", context->next_param);
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
     context->next_param++;

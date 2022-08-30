@@ -6,8 +6,6 @@ void handle_finalize(void *parameters)
     context_t *context = (context_t *)msg->pluginContext;
 
     // set default numScreens
-
-    PRINTF("GPIRIOU FINALIZE\n");
     msg->numScreens = 1;
 
     switch (context->selectorIndex)
@@ -19,10 +17,11 @@ void handle_finalize(void *parameters)
     case COMMON_CLAIM:
         if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
+            PRINTF("USER WARNING RAISED\n");
             PRINTF("MSG PARAMETER: %.*H\n",
                    ADDRESS_LENGTH,
                    context->user_address);
-            PRINTF("MSG ADDRESS: %.*H\n",
+            PRINTF("MSG USER ADDRESS: %.*H\n",
                    ADDRESS_LENGTH,
                    msg->address);
             context->user_warning = 1;
