@@ -18,10 +18,10 @@ void handle_finalize(void *parameters)
         if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
             PRINTF("USER WARNING RAISED\n");
-            PRINTF("MSG PARAMETER: %.*H\n",
+            PRINTF("PARAMETER: %.*H\n",
                    ADDRESS_LENGTH,
                    context->user_address);
-            PRINTF("MSG USER ADDRESS: %.*H\n",
+            PRINTF("USER ADDRESS: %.*H\n",
                    ADDRESS_LENGTH,
                    msg->address);
             context->user_warning = 1;

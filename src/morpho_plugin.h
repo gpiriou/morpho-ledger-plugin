@@ -29,8 +29,6 @@ typedef enum
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
 #define NUM_SELECTORS 11
 
-// Contracts ENUM
-
 extern const uint32_t MORPHO_SELECTORS[NUM_SELECTORS];
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
@@ -74,13 +72,13 @@ typedef enum
 {
     OFFSET_C_TOKEN_ADDRESSES,
     _TRADE_FOR_MORPHO_TOKEN,
-    CLAIM_REWARDS_NONE,
+    CLAIM_REWARDS_IGNORED,
 } claim_rewards_parameters;
 
 typedef enum
 {
     _ACCOUNT,
-    CLAIM_NONE,
+    CLAIM_IGNORED,
 } claim_parameters;
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32. Do not remove

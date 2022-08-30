@@ -8,9 +8,8 @@
 // TITLE string for 1st UI is PLUGIN_NAME.
 
 #define MSG_COMPOUND_ID "Compound"
-#define MSG_REWARDS_DISTRIBUTOR_ID "Airdrop"
+#define MSG_REWARDS_DISTRIBUTOR_ID "Claim rewards"
 #define MSG_AAVE_ID "Aave"
-#define MSG_UNKNOWN_ID "Unknown contract"
 
 /* handle_query_contract_ui.c strings */
 

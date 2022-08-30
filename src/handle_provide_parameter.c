@@ -16,7 +16,6 @@ void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
         context->token_warning = 1;
         return;
     }
-    PRINTF("COLLATERAL ADDRESS MATCHED\n");
     memcpy(context->token_ticker, tokens_list[i].ticker, MAX_TICKER_LEN);
     context->token_decimals = tokens_list[i].decimals;
 }
@@ -70,12 +69,11 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
     case OFFSET_C_TOKEN_ADDRESSES:
         break;
     case _TRADE_FOR_MORPHO_TOKEN:
-        PRINTF("MORPHO BOOL - LAST BYTE: %d\n", msg->parameter[PARAMETER_LENGTH - 1]);
         if (msg->parameter[PARAMETER_LENGTH - 1])
             context->trade_for_morpho = 1;
         break;
-    case CLAIM_REWARDS_NONE:
-        break;
+    case CLAIM_REWARDS_IGNORED:
+        return;
     default:
         PRINTF("Param not supported: %d\n", context->next_param);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -91,8 +89,8 @@ static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
     case _ACCOUNT:
         copy_parameter(context->user_address, msg->parameter + 12, ADDRESS_LENGTH);
         break;
-    case CLAIM_NONE:
-        break;
+    case CLAIM_IGNORED:
+        return;
     default:
         PRINTF("Param not supported: %d\n", context->next_param);
         msg->result = ETH_PLUGIN_RESULT_ERROR;
