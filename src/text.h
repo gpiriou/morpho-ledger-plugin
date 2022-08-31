@@ -6,7 +6,6 @@
 // and used for the top and bottom text displays in the UI screen.
 
 /* handle_query_contract_id.c strings */
-// TITLE string for 1st UI is PLUGIN_NAME.
 
 #define MSG_COMPOUND_ID "Compound"
 #define MSG_REWARDS_DISTRIBUTOR_ID "Claim Rewards"

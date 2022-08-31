@@ -6,13 +6,10 @@ on:
     branches:
       - master
       - dev
-      - workflows
   pull_request:
     branches:
       - master
       - dev
-      - workflows
-
 jobs:
   job_build_plugin_nano_s:
     name: Build plugin for Nano S

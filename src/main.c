@@ -60,27 +60,21 @@ void dispatch_plugin_calls(int message, void *parameters)
     switch (message)
     {
     case ETH_PLUGIN_INIT_CONTRACT:
-        PRINTF("GPIRIOU INIT CONTRACT\n");
         handle_init_contract(parameters);
         break;
     case ETH_PLUGIN_PROVIDE_PARAMETER:
-        PRINTF("GPIRIOU PROVIDE PARAMETER\n");
         handle_provide_parameter(parameters);
         break;
     case ETH_PLUGIN_FINALIZE:
-        PRINTF("GPIRIOU FINALIZE\n");
         handle_finalize(parameters);
         break;
     case ETH_PLUGIN_PROVIDE_INFO:
-        PRINTF("GPIRIOU PROVIDE INFO\n");
         handle_provide_token(parameters);
         break;
     case ETH_PLUGIN_QUERY_CONTRACT_ID:
-        PRINTF("GPIRIOU QUERY CONTRACT ID\n");
         handle_query_contract_id(parameters);
         break;
     case ETH_PLUGIN_QUERY_CONTRACT_UI:
-        PRINTF("GPIRIOU QUERY CONTRACT UI\n");
         handle_query_contract_ui(parameters);
         break;
     default:
@@ -92,7 +86,6 @@ void dispatch_plugin_calls(int message, void *parameters)
 // Calls the ethereum app.
 void call_app_ethereum()
 {
-    PRINTF("GPIRIOU CALL APP ETHEREUM\n");
     unsigned int libcall_params[3];
     libcall_params[0] = (unsigned int)"Ethereum";
     libcall_params[1] = 0x100;
@@ -121,7 +114,6 @@ __attribute__((section(".boot"))) int main(int arg0)
             if (!arg0)
             {
                 // Called from dashboard, launch Ethereum app
-                PRINTF("GPIRIOU ARG0\n");
                 call_app_ethereum();
                 return 0;
             }
@@ -132,13 +124,10 @@ __attribute__((section(".boot"))) int main(int arg0)
 
                 // If `ETH_PLUGIN_CHECK_PRESENCE` is set, this means the caller is just trying to
                 // know whether this app exists or not. We can skip `dispatch_plugin_calls`.
-                PRINTF("GPIRIOU NOT ARG0\n");
                 if (args[0] != ETH_PLUGIN_CHECK_PRESENCE)
                 {
-                    PRINTF("GPIRIOU ARG0 != ETH PLUGIN CHECK PRESENCE\n");
                     dispatch_plugin_calls(args[0], (void *)args[1]);
                 }
-                PRINTF("GPIRIOU OS LIB END\n");
                 // Call `os_lib_end`, go back to the ethereum app.
                 os_lib_end();
             }

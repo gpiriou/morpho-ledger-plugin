@@ -16,7 +16,6 @@ static int find_selector(uint32_t selector, const uint32_t *selectors, size_t n,
 // Called once to init.
 void handle_init_contract(void *parameters)
 {
-    PRINTF("IN handle_init_contract\n");
     // Cast the msg to the type of structure we expect (here, ethPluginInitContract_t).
     ethPluginInitContract_t *msg = (ethPluginInitContract_t *)parameters;
 
