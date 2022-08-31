@@ -13,12 +13,12 @@
 
 /* handle_query_contract_ui.c strings */
 
-#define TITLE_SUPPLY_SCREEN_1_UI "Supply"
-#define TITLE_REPAY_SCREEN_1_UI "Repay"
+#define TITLE_SUPPLY_SCREEN_UI "Supply"
+#define TITLE_REPAY_UI "Repay"
 #define TITLE_ON_BEHALF_UI "On Behalf"
-#define TITLE_WITHDRAW_SCREEN_1_UI "Withdraw"
-#define TITLE_BORROW_SCREEN_1_UI "Borrow"
-#define TITLE_CLAIM_REWARDS_SCREEN_1_UI "Claim"
+#define TITLE_WITHDRAW_UI "Withdraw"
+#define TITLE_BORROW_UI "Borrow"
+#define TITLE_CLAIM_REWARDS_UI "Claim"
 #define MSG_CLAIM_REWARDS_MORPHO_UI "Trade tokens for MORPHO"
 #define MSG_CLAIM_REWARDS_OTHERS_UI "rewards"
 #define MSG_CLAIM_UI "MORPHO"
