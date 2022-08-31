@@ -26,7 +26,7 @@ static void handle_warning_ui(ethQueryContractUI_t *msg, context_t *context)
             break;
         default:
             strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-            strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
+            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
             break;
         }
     }

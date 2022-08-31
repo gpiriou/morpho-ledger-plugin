@@ -15,10 +15,6 @@ const models = [
 		name: 'nanos',
 		steps: 7
 	},
-	// {
-	// 	name: 'nanox',
-	// 	steps: 5
-	// },
 ]
 
 // populate unsignedTx from genericTx and get network chain id

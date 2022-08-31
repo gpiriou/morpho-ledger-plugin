@@ -9,14 +9,14 @@
 // TITLE string for 1st UI is PLUGIN_NAME.
 
 #define MSG_COMPOUND_ID "Compound"
-#define MSG_REWARDS_DISTRIBUTOR_ID "Claim rewards"
+#define MSG_REWARDS_DISTRIBUTOR_ID "Claim Rewards"
 #define MSG_AAVE_ID "Aave"
 
 /* handle_query_contract_ui.c strings */
 
 #define TITLE_SUPPLY_SCREEN_1_UI "Supply"
 #define TITLE_REPAY_SCREEN_1_UI "Repay"
-#define TITLE_ON_BEHALF_UI "On behalf"
+#define TITLE_ON_BEHALF_UI "On Behalf"
 #define TITLE_WITHDRAW_SCREEN_1_UI "Withdraw"
 #define TITLE_BORROW_SCREEN_1_UI "Borrow"
 #define TITLE_CLAIM_REWARDS_SCREEN_1_UI "Claim"
