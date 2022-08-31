@@ -128,7 +128,7 @@ static void handle_claim_rewards_ui(ethQueryContractUI_t *msg, context_t *contex
     switch (msg->screenIndex)
     {
     case 0:
-        strlcpy(msg->title, TITLE_CLAIM_REWARDS_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_CLAIM_REWARDS_UI, msg->titleLength);
         if (context->trade_for_morpho)
             strlcpy(msg->msg, MSG_CLAIM_REWARDS_MORPHO_UI, msg->msgLength);
         else
@@ -145,7 +145,7 @@ static void handle_claim_ui(ethQueryContractUI_t *msg, context_t *context)
     switch (msg->screenIndex)
     {
     case 0:
-        strlcpy(msg->title, TITLE_CLAIM_REWARDS_SCREEN_1_UI, msg->titleLength);
+        strlcpy(msg->title, TITLE_CLAIM_REWARDS_UI, msg->titleLength);
         strlcpy(msg->msg, MSG_CLAIM_UI, msg->msgLength);
         break;
     case 1:
