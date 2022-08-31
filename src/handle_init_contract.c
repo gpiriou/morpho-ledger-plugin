@@ -16,7 +16,6 @@ static int find_selector(uint32_t selector, const uint32_t *selectors, size_t n,
 // Called once to init.
 void handle_init_contract(void *parameters)
 {
-    PRINTF("IN handle_init_contract\n");
     // Cast the msg to the type of structure we expect (here, ethPluginInitContract_t).
     ethPluginInitContract_t *msg = (ethPluginInitContract_t *)parameters;
 
@@ -57,16 +56,24 @@ void handle_init_contract(void *parameters)
     // Set `next_param` to be the first field we expect to parse.
     switch (context->selectorIndex)
     {
-    case SUPPLY:
-    case REPAY:
+    case COMPOUND_SUPPLY:
+    case COMPOUND_REPAY:
+    case AAVE_SUPPLY:
+    case AAVE_REPAY:
         context->next_param = _POOL_TOKEN_ADDRESS_SUPPLY_REPAY;
         break;
-    case WITHDRAW:
-    case BORROW:
+    case COMPOUND_WITHDRAW:
+    case COMPOUND_BORROW:
+    case AAVE_WITHDRAW:
+    case AAVE_BORROW:
         context->next_param = _POOL_TOKEN_ADDRESS_WITHDRAW_BORROW;
         break;
-    case CLAIM_REWARDS:
-        // context->next_param = _C_TOKEN_ADDRESSES;
+    case COMPOUND_CLAIM_REWARDS:
+    case AAVE_CLAIM_REWARDS:
+        context->next_param = OFFSET_C_TOKEN_ADDRESSES;
+        break;
+    case COMMON_CLAIM:
+        context->next_param = _ACCOUNT;
         break;
     default:
         PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);

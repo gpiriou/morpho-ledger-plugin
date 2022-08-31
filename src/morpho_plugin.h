@@ -9,41 +9,25 @@
 #define DEFAULT_DECIMAL WEI_TO_ETHER
 #define ETH_DECIMAL WEI_TO_ETHER
 
-// Compound addresses.
-extern const uint8_t CWETH_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CCOMP_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUNI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUSDC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CDAI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CFEI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CWBTC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t CUSDT_ADDRESS[ADDRESS_LENGTH];
-
-// Corresponding token addresses for UI.
-extern const uint8_t AWETH_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AAAVE_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUNI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUSDC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t ADAI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AFEI_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AWBTC_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t AUSDT_ADDRESS[ADDRESS_LENGTH];
-
-#define NUM_TOKENS_SUPPORTED 8
-
 // Enumeration of the different selectors possible.
 // Should follow the exact same order as the array declared in main.c
 typedef enum
 {
-    SUPPLY,
-    REPAY,
-    WITHDRAW,
-    BORROW,
-    CLAIM_REWARDS,
+    COMPOUND_SUPPLY,
+    COMPOUND_REPAY,
+    COMPOUND_WITHDRAW,
+    COMPOUND_BORROW,
+    COMPOUND_CLAIM_REWARDS,
+    AAVE_SUPPLY,
+    AAVE_REPAY,
+    AAVE_WITHDRAW,
+    AAVE_BORROW,
+    AAVE_CLAIM_REWARDS,
+    COMMON_CLAIM,
 } selector_t;
 
 // Number of selectors defined in this plugin. Should match the enum `selector_t`.
-#define NUM_SELECTORS 5
+#define NUM_SELECTORS 11
 
 extern const uint32_t MORPHO_SELECTORS[NUM_SELECTORS];
 
@@ -56,13 +40,20 @@ typedef struct __attribute__((__packed__)) context_t
     char token_ticker[MAX_TICKER_LEN];
     uint8_t token_decimals;
     uint8_t amount[INT256_LENGTH];
-    uint8_t on_behalf[ADDRESS_LENGTH];
+    uint8_t user_address[ADDRESS_LENGTH];
     uint16_t next_param;
     uint8_t trade_for_morpho;
     uint8_t user_warning;
     uint8_t token_warning;
     selector_t selectorIndex; // method id
 } context_t;
+
+typedef struct token_info_t
+{
+    const uint8_t collateral_address[ADDRESS_LENGTH];
+    const char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
+    const uint8_t decimals;
+} token_info_t;
 
 typedef enum
 {
@@ -81,8 +72,14 @@ typedef enum
 {
     OFFSET_C_TOKEN_ADDRESSES,
     _TRADE_FOR_MORPHO_TOKEN,
-    NONE,
+    CLAIM_REWARDS_IGNORED,
 } claim_rewards_parameters;
+
+typedef enum
+{
+    _ACCOUNT,
+    CLAIM_IGNORED,
+} claim_parameters;
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32. Do not remove
 // this check.

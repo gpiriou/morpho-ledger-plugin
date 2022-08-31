@@ -6,23 +6,30 @@ void handle_finalize(void *parameters)
     context_t *context = (context_t *)msg->pluginContext;
 
     // set default numScreens
-
-    PRINTF("GPIRIOU FINALIZE\n");
     msg->numScreens = 1;
 
-    if (context->selectorIndex == SUPPLY || context->selectorIndex == REPAY)
+    switch (context->selectorIndex)
     {
-        if (memcmp(context->on_behalf, msg->address, ADDRESS_LENGTH))
+    case COMPOUND_SUPPLY:
+    case COMPOUND_REPAY:
+    case AAVE_SUPPLY:
+    case AAVE_REPAY:
+    case COMMON_CLAIM:
+        if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH))
         {
-            PRINTF("ON BEHALF: %.*H\n",
+            PRINTF("USER WARNING RAISED\n");
+            PRINTF("PARAMETER: %.*H\n",
                    ADDRESS_LENGTH,
-                   context->on_behalf);
-            PRINTF("MSG ADDRESS: %.*H\n",
+                   context->user_address);
+            PRINTF("USER ADDRESS: %.*H\n",
                    ADDRESS_LENGTH,
                    msg->address);
             context->user_warning = 1;
             msg->numScreens++;
         }
+        break;
+    default:
+        break;
     }
     if (context->token_warning)
         msg->numScreens++;

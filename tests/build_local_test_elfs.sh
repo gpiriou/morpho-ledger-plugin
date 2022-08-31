@@ -12,6 +12,7 @@ fi
 # FILL THESE WITH YOUR OWN SDKs PATHS and APP-ETHEREUM's ROOT
 NANOS_SDK=$NANOS_SDK
 NANOX_SDK=$NANOX_SDK
+NANOSP_SDK=$NANOSP_SDK
 APP_ETHEREUM=$APP_ETHEREUM
 APP_ETHEREUM="/plugin_dev/app-ethereum"
 PLUGIN_NAME='morpho'
@@ -56,6 +57,27 @@ function build_nanox_appeth() {
 	cp "${APP_ETHEREUM}/bin/app.elf" "tests/elfs/ethereum_nanox.elf"
 }
 
+# echo "*Building elfs for Nano S..."
+
+function build_nanosp_plugin() {
+	echo "**Building app-plugin for Nano S+..."
+	make clean BOLOS_SDK=$NANOSP_SDK
+	make -j DEBUG=1 BOLOS_SDK=$NANOSP_SDK
+	cp bin/app.elf "tests/elfs/${PLUGIN_NAME}_nanosp.elf"
+	echo $NANOSP_SDK
+	echo $BOLOS_SDK
+}
+
+function build_nanosp_appeth() {
+	echo "**Building app-ethereum for Nano S+..."
+	cd $APP_ETHEREUM
+	make clean BOLOS_SDK=$NANOSP_SDK
+	make -j DEBUG=1 BYPASS_SIGNATURES=1 BOLOS_SDK=$NANOSP_SDK CHAIN=ethereum ALLOW_DATA=1
+	cd -
+	cp "${APP_ETHEREUM}/bin/app.elf" "tests/elfs/ethereum_nanosp.elf"
+}
+
+
 ### Exec
 
 # create elfs folder if it doesn't exist
@@ -82,18 +104,26 @@ then
         echo "plugin X + app-eth X"
 				build_nanox_plugin
 				build_nanox_appeth
+elif [ "$1" == "sp"  ]
+then
+        echo "plugin S+ + app-eth S+"
+				build_nanosp_plugin
+				build_nanosp_appeth
 elif [ "$1" == "all"  ]
 then
-        echo "plugin S+X + app-eth S+X"
+        echo "plugin S+X+SP + app-eth S+X+SP"
 				build_nanos_plugin
 				build_nanos_appeth
 				build_nanox_plugin
 				build_nanox_appeth
+				build_nanosp_plugin
+				build_nanosp_appeth
 else
 printf "wrong args:
 use no args for [S]plugin,
 use 'eth' for [S]app-eth,
 use 's' for [S]plugin + [S]app-eth,
+use 'sp' for [SP]plugin + [SP]app-eth,
 use 'all' for building all elfs\n"
 fi
 

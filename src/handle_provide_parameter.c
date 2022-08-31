@@ -1,75 +1,34 @@
 #include "morpho_plugin.h"
+#include "tokens.h"
 
-// Used to display corresponding payment token info (i.e cDAI -> DAI) for UI purposes. Edit here to add more tokens.
-static void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
+// Used to display corresponding payment token info (i.e cDAI -> DAI) for UI purposes.
+void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
 {
-    PRINTF("GPIRIOU ASSIGN TOKEN\n");
-    uint8_t *pool_token_address = msg->parameter + 12;
-    PRINTF("Pool token address: %.*H\n",
-           ADDRESS_LENGTH,
-           pool_token_address);
-    if ((!memcmp(pool_token_address, CWETH_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AWETH_ADDRESS, ADDRESS_LENGTH)))
+    size_t i = 0;
+    while (i < NUM_TOKENS_SUPPORTED && memcmp(tokens_list[i].collateral_address, msg->parameter + 12, ADDRESS_LENGTH))
+        i++;
+    if (i == NUM_TOKENS_SUPPORTED)
     {
-        memcpy(context->token_ticker, "WETH ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else if ((!memcmp(pool_token_address, CUNI_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AUNI_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "UNI ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else if ((!memcmp(pool_token_address, CUSDC_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AUSDC_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "USDC ", MAX_TICKER_LEN);
-        context->token_decimals = 6;
-    }
-    else if ((!memcmp(pool_token_address, CDAI_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, ADAI_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "DAI ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else if ((!memcmp(pool_token_address, CFEI_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AFEI_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "FEI ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else if ((!memcmp(pool_token_address, CWBTC_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AWBTC_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "WBTC ", MAX_TICKER_LEN);
-        context->token_decimals = 8;
-    }
-    else if ((!memcmp(pool_token_address, CUSDT_ADDRESS, ADDRESS_LENGTH)) || (!memcmp(pool_token_address, AUSDT_ADDRESS, ADDRESS_LENGTH)))
-    {
-        memcpy(context->token_ticker, "USDT ", MAX_TICKER_LEN);
-        context->token_decimals = 6;
-    }
-    else if (!memcmp(pool_token_address, CCOMP_ADDRESS, ADDRESS_LENGTH))
-    {
-        memcpy(context->token_ticker, "COMP ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else if (!memcmp(pool_token_address, AAAVE_ADDRESS, ADDRESS_LENGTH))
-    {
-        memcpy(context->token_ticker, "AAVE ", MAX_TICKER_LEN);
-        context->token_decimals = 18;
-    }
-    else
-    {
+        PRINTF("COLLATERAL ADDRESS NOT MATCHED");
+        PRINTF("TOKEN WARNING RAISED\n");
         memcpy(context->token_ticker, "? ", MAX_TICKER_LEN);
         context->token_decimals = DEFAULT_DECIMAL;
         context->token_warning = 1;
+        return;
     }
+    memcpy(context->token_ticker, tokens_list[i].ticker, MAX_TICKER_LEN);
+    context->token_decimals = tokens_list[i].decimals;
 }
+
 static void handle_supply_and_repay(ethPluginProvideParameter_t *msg, context_t *context)
 {
-    PRINTF("GPIRIOU SUPPLY\n");
     switch ((supply_repay_parameters)context->next_param)
     {
     case _POOL_TOKEN_ADDRESS_SUPPLY_REPAY:
         assign_token_info(msg, context);
         break;
     case _ON_BEHALF:
-        copy_address(context->on_behalf, msg->parameter, ADDRESS_LENGTH);
+        copy_address(context->user_address, msg->parameter, ADDRESS_LENGTH);
         break;
     case _AMOUNT_SUPPLY_REPAY:
         copy_parameter(context->amount, msg->parameter, sizeof(context->amount));
@@ -100,6 +59,9 @@ static void handle_withdraw_and_borrow(ethPluginProvideParameter_t *msg, context
     context->next_param++;
 }
 
+// claimRewards() on compound and aave-v2 have a slightly different parameter structure:
+// The first parameter for compound is an address array, for aave-v2 it is a byte calldata.
+// This function handles both methods in the same way (i.e. skip array/calldata offset, get bool, and ignore the rest).
 static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *context)
 {
     switch ((claim_rewards_parameters)context->next_param)
@@ -107,12 +69,31 @@ static void handle_claim_rewards(ethPluginProvideParameter_t *msg, context_t *co
     case OFFSET_C_TOKEN_ADDRESSES:
         break;
     case _TRADE_FOR_MORPHO_TOKEN:
-        PRINTF("TRADE FOR MORPHO BOOL\n");
-        PRINTF("LAST BYTE: %d\n", msg->parameter[PARAMETER_LENGTH - 1]);
         if (msg->parameter[PARAMETER_LENGTH - 1])
             context->trade_for_morpho = 1;
         break;
-    case NONE:
+    case CLAIM_REWARDS_IGNORED:
+        return;
+    default:
+        PRINTF("Param not supported: %d\n", context->next_param);
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
+        break;
+    }
+    context->next_param++;
+}
+
+static void handle_claim(ethPluginProvideParameter_t *msg, context_t *context)
+{
+    switch ((claim_parameters)context->next_param)
+    {
+    case _ACCOUNT:
+        copy_parameter(context->user_address, msg->parameter + 12, ADDRESS_LENGTH);
+        break;
+    case CLAIM_IGNORED:
+        return;
+    default:
+        PRINTF("Param not supported: %d\n", context->next_param);
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
     context->next_param++;
@@ -130,21 +111,28 @@ void handle_provide_parameter(void *parameters)
            PARAMETER_LENGTH,
            msg->parameter);
 
-    PRINTF("GPIRIOU \n");
     msg->result = ETH_PLUGIN_RESULT_OK;
 
     switch (context->selectorIndex)
     {
-    case SUPPLY:
-    case REPAY:
+    case COMPOUND_SUPPLY:
+    case COMPOUND_REPAY:
+    case AAVE_SUPPLY:
+    case AAVE_REPAY:
         handle_supply_and_repay(msg, context);
         break;
-    case WITHDRAW:
-    case BORROW:
+    case COMPOUND_WITHDRAW:
+    case COMPOUND_BORROW:
+    case AAVE_WITHDRAW:
+    case AAVE_BORROW:
         handle_withdraw_and_borrow(msg, context);
         break;
-    case CLAIM_REWARDS:
+    case COMPOUND_CLAIM_REWARDS:
+    case AAVE_CLAIM_REWARDS:
         handle_claim_rewards(msg, context);
+        break;
+    case COMMON_CLAIM:
+        handle_claim(msg, context);
         break;
     default:
         PRINTF("Selector Index not supported: %d\n", context->selectorIndex);
