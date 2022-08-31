@@ -13,7 +13,7 @@
 
 /* handle_query_contract_ui.c strings */
 
-#define TITLE_SUPPLY_SCREEN_UI "Supply"
+#define TITLE_SUPPLY_UI "Supply"
 #define TITLE_REPAY_UI "Repay"
 #define TITLE_ON_BEHALF_UI "On Behalf"
 #define TITLE_WITHDRAW_UI "Withdraw"
