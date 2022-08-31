@@ -173,7 +173,7 @@ Edit these in `./src/text.h` to modify the strings displayed to the user.
 
 #### Supported tokens
 
-To add supported tokens, add them to the `tokens_list` array and increase NUM_TOKENS_SUPPORTED accordingly in tokens.h.
+To add supported tokens, add them to the `tokens_list` array and increase NUM_TOKENS_SUPPORTED accordingly in `tokens.h`.
 
 *Note: The address is the collateral token's but the ticker and decimal are for the original and corresponding token.
 
