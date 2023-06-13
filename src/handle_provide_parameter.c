@@ -9,7 +9,7 @@ void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
         i++;
     if (i == NUM_TOKENS_SUPPORTED)
     {
-        PRINTF("COLLATERAL ADDRESS NOT MATCHED");
+        PRINTF("COLLATERAL ADDRESS NOT MATCHED\n");
         PRINTF("TOKEN WARNING RAISED\n");
         memcpy(context->token_ticker, "?", MAX_TICKER_LEN);
         context->token_decimals = DEFAULT_DECIMAL;
