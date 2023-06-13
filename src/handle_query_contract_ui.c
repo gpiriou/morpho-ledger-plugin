@@ -8,32 +8,21 @@ static void handle_warning_ui(ethQueryContractUI_t *msg, context_t *context)
         strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
         strlcpy(msg->msg, MSG_TOKEN_WARNING_UI, msg->msgLength);
     }
-    else if (context->user_warning)
+    else if (context->on_behalf)
     {
-        switch (context->selectorIndex)
-        {
-        case COMPOUND_SUPPLY:
-        case AAVE_SUPPLY:
-        case COMPOUND_REPAY:
-        case AAVE_REPAY:
-            strlcpy(msg->title, TITLE_ON_BEHALF_UI, msg->titleLength);
-            msg->msg[0] = '0';
-            msg->msg[1] = 'x';
-            getEthAddressStringFromBinary((uint8_t *)context->user_address,
-                                          (uint8_t *)msg->msg + 2,
-                                          msg->pluginSharedRW->sha3,
-                                          0);
-            break;
-        default:
-            strlcpy(msg->title, TITLE_WARNING_UI, msg->titleLength);
-            strlcpy(msg->msg, MSG_USER_WARNING_UI, msg->msgLength);
-            break;
-        }
+        strlcpy(msg->title, TITLE_ON_BEHALF_UI, msg->titleLength);
+        msg->msg[0] = '0';
+        msg->msg[1] = 'x';
+        getEthAddressStringFromBinary((uint8_t *)context->user_address,
+                                      msg->msg + 2,
+                                      msg->pluginSharedRW->sha3,
+                                      0);
     }
     else
     {
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE WARNING UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
+        return ;
     }
 }
 
@@ -56,8 +45,8 @@ static void handle_supply_ui(ethQueryContractUI_t *msg, context_t *context)
         handle_warning_ui(msg, context);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE SUPPLY UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }
@@ -79,8 +68,8 @@ static void handle_repay_ui(ethQueryContractUI_t *msg, context_t *context)
         handle_warning_ui(msg, context);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE REPAY UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }
@@ -98,8 +87,8 @@ static void handle_withdraw_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE WITHDRAW UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }
@@ -117,8 +106,8 @@ static void handle_borrow_ui(ethQueryContractUI_t *msg, context_t *context)
                        msg->msgLength);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE BORROW UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }
@@ -135,8 +124,8 @@ static void handle_claim_rewards_ui(ethQueryContractUI_t *msg, context_t *contex
             strlcpy(msg->msg, MSG_CLAIM_REWARDS_OTHERS_UI, msg->msgLength);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE CLAIM REWARDS UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }
@@ -152,8 +141,8 @@ static void handle_claim_ui(ethQueryContractUI_t *msg, context_t *context)
         handle_warning_ui(msg, context);
         break;
     default:
-        strlcpy(msg->title, "ERROR", msg->titleLength);
-        strlcpy(msg->msg, "ERROR", msg->msgLength);
+        PRINTF("ERROR IN HANDLE CLAIM UI\n");
+        msg->result = ETH_PLUGIN_RESULT_ERROR;
         break;
     }
 }

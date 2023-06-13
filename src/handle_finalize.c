@@ -24,7 +24,7 @@ void handle_finalize(void *parameters)
             PRINTF("USER ADDRESS: %.*H\n",
                    ADDRESS_LENGTH,
                    msg->address);
-            context->user_warning = 1;
+            context->on_behalf = 1;
             msg->numScreens++;
         }
         break;

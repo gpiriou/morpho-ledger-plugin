@@ -43,7 +43,7 @@ typedef struct __attribute__((__packed__)) context_t
     uint8_t user_address[ADDRESS_LENGTH];
     uint16_t next_param;
     uint8_t trade_for_morpho;
-    uint8_t user_warning;
+    uint8_t on_behalf;
     uint8_t token_warning;
     selector_t selectorIndex; // method id
 } context_t;

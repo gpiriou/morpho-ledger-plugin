@@ -23,5 +23,4 @@
 
 /* Warnings */
 #define TITLE_WARNING_UI "WARNING"
-#define MSG_USER_WARNING_UI "Wrong user address!"
 #define MSG_TOKEN_WARNING_UI "Unknown token!"
