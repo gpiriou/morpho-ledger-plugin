@@ -11,7 +11,7 @@ void assign_token_info(ethPluginProvideParameter_t *msg, context_t *context)
     {
         PRINTF("COLLATERAL ADDRESS NOT MATCHED");
         PRINTF("TOKEN WARNING RAISED\n");
-        memcpy(context->token_ticker, "? ", MAX_TICKER_LEN);
+        memcpy(context->token_ticker, "?", MAX_TICKER_LEN);
         context->token_decimals = DEFAULT_DECIMAL;
         context->token_warning = 1;
         return;
