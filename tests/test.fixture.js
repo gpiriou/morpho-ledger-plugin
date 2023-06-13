@@ -139,7 +139,8 @@ function processTest(device, step, contractName, testLabel, testDirSuffix, unsig
         testNetwork,
         unsignedTx
       );
-    })
+    }),
+    130000
   );
 }
 
