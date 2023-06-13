@@ -7,12 +7,11 @@
 
 // Number of decimals used when the token wasn't found in the Crypto Asset List.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
-#define ETH_DECIMAL WEI_TO_ETHER
+#define ETH_DECIMAL     WEI_TO_ETHER
 
 // Enumeration of the different selectors possible.
 // Should follow the exact same order as the array declared in main.c
-typedef enum
-{
+typedef enum {
     COMPOUND_SUPPLY,
     COMPOUND_REPAY,
     COMPOUND_WITHDRAW,
@@ -33,8 +32,7 @@ extern const uint32_t MORPHO_SELECTORS[NUM_SELECTORS];
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 // 124 / 160
-typedef struct __attribute__((__packed__)) context_t
-{
+typedef struct __attribute__((__packed__)) context_t {
     uint8_t pool_token_address[ADDRESS_LENGTH];
     uint8_t token_address[ADDRESS_LENGTH];
     char token_ticker[MAX_TICKER_LEN];
@@ -45,38 +43,34 @@ typedef struct __attribute__((__packed__)) context_t
     uint8_t trade_for_morpho;
     uint8_t on_behalf;
     uint8_t token_warning;
-    selector_t selectorIndex; // method id
+    selector_t selectorIndex;  // method id
 } context_t;
 
-typedef struct token_info_t
-{
+typedef struct token_info_t {
     const uint8_t collateral_address[ADDRESS_LENGTH];
-    const char ticker[MAX_TICKER_LEN]; // ticker and decimal of the original token corresponding to collateral address.
+    const char ticker[MAX_TICKER_LEN];  // ticker and decimal of the original token corresponding to
+                                        // collateral address.
     const uint8_t decimals;
 } token_info_t;
 
-typedef enum
-{
+typedef enum {
     _POOL_TOKEN_ADDRESS_SUPPLY_REPAY,
     _ON_BEHALF,
     _AMOUNT_SUPPLY_REPAY,
 } supply_repay_parameters;
 
-typedef enum
-{
+typedef enum {
     _POOL_TOKEN_ADDRESS_WITHDRAW_BORROW,
     _AMOUNT_WITHDRAW_BORROW,
 } withdraw_borrow_parameters;
 
-typedef enum
-{
+typedef enum {
     OFFSET_C_TOKEN_ADDRESSES,
     _TRADE_FOR_MORPHO_TOKEN,
     CLAIM_REWARDS_IGNORED,
 } claim_rewards_parameters;
 
-typedef enum
-{
+typedef enum {
     _ACCOUNT,
     CLAIM_IGNORED,
 } claim_parameters;

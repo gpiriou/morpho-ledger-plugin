@@ -41,7 +41,8 @@ static const uint32_t AAVE_CLAIM_REWARDS_SELECTOR = 0x3111e7b3;
 
 static const uint32_t COMMON_CLAIM_SELECTOR = 0x3d13f874;
 
-// Array of all the different Morpho.sol and RewardsDistributors.sol selectors. (Compound / Aave and Common)
+// Array of all the different Morpho.sol and RewardsDistributors.sol selectors. (Compound / Aave and
+// Common)
 const uint32_t MORPHO_SELECTORS[NUM_SELECTORS] = {
     COMPOUND_SUPPLY_SELECTOR,
     COMPOUND_REPAY_SELECTOR,
