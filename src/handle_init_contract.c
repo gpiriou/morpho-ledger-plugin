@@ -36,7 +36,7 @@ void handle_init_contract(void *parameters) {
     context_t *context = (context_t *) msg->pluginContext;
 
     // Initialize the context (to 0).
-    memset(context, 0, sizeof(*context));
+    explicit_bzero(context, sizeof(*context));
 
     // Find tx selector
     uint32_t selector = U4BE(msg->selector, 0);

@@ -138,8 +138,8 @@ void handle_query_contract_ui(void *parameters) {
     context_t *context = (context_t *) msg->pluginContext;
 
     // Clean the display fields.
-    memset(msg->title, 0, msg->titleLength);
-    memset(msg->msg, 0, msg->msgLength);
+    explicit_bzero(msg->title, msg->titleLength);
+    explicit_bzero(msg->msg, msg->msgLength);
 
     msg->result = ETH_PLUGIN_RESULT_OK;
 
