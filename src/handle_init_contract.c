@@ -49,18 +49,25 @@ void handle_init_contract(void *parameters) {
     // Set `next_param` to be the first field we expect to parse.
     switch (context->selectorIndex) {
         case COMPOUND_SUPPLY:
+            // Fallthrough
         case COMPOUND_REPAY:
+            // Fallthrough
         case AAVE_SUPPLY:
+            // Fallthrough
         case AAVE_REPAY:
             context->next_param = _POOL_TOKEN_ADDRESS_SUPPLY_REPAY;
             break;
         case COMPOUND_WITHDRAW:
+            // Fallthrough
         case COMPOUND_BORROW:
+            // Fallthrough
         case AAVE_WITHDRAW:
+            // Fallthrough
         case AAVE_BORROW:
             context->next_param = _POOL_TOKEN_ADDRESS_WITHDRAW_BORROW;
             break;
         case COMPOUND_CLAIM_REWARDS:
+            // Fallthrough
         case AAVE_CLAIM_REWARDS:
             context->next_param = OFFSET_C_TOKEN_ADDRESSES;
             break;
