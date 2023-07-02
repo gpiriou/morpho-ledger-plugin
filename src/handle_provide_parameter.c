@@ -105,25 +105,18 @@ void handle_provide_parameter(void *parameters) {
 
     switch (context->selectorIndex) {
         case COMPOUND_SUPPLY:
-            // Fallthrough
         case COMPOUND_REPAY:
-            // Fallthrough
         case AAVE_SUPPLY:
-            // Fallthrough
         case AAVE_REPAY:
             handle_supply_and_repay(msg, context);
             break;
         case COMPOUND_WITHDRAW:
-            // Fallthrough
         case COMPOUND_BORROW:
-            // Fallthrough
         case AAVE_WITHDRAW:
-            // Fallthrough
         case AAVE_BORROW:
             handle_withdraw_and_borrow(msg, context);
             break;
         case COMPOUND_CLAIM_REWARDS:
-            // Fallthrough
         case AAVE_CLAIM_REWARDS:
             handle_claim_rewards(msg, context);
             break;

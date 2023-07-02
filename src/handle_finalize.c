@@ -9,13 +9,9 @@ void handle_finalize(void *parameters) {
 
     switch (context->selectorIndex) {
         case COMPOUND_SUPPLY:
-            // Fallthrough
         case COMPOUND_REPAY:
-            // Fallthrough
         case AAVE_SUPPLY:
-            // Fallthrough
         case AAVE_REPAY:
-            // Fallthrough
         case COMMON_CLAIM:
             if (memcmp(context->user_address, msg->address, ADDRESS_LENGTH)) {
                 PRINTF("USER WARNING RAISED\n");
