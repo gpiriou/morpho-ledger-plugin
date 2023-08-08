@@ -15,6 +15,5 @@ DS_Store/
 **/.DS_Store
 **.swp
 Save*
-tests/elfs
-build/nanox
+build/
 glyphs
