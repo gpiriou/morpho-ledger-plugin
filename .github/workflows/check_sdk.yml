@@ -38,4 +38,3 @@ jobs:
               echo "SDK versions mismatch!"
               exit 1
           fi
-
